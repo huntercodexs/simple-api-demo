@@ -1,7 +1,7 @@
 package com.huntercodexs.simpleapidemo;
 
-import com.huntercodexs.simpleapidemo.service.SimpleApiDemo2Service;
-import com.huntercodexs.simpleapidemo.service.SimpleApiDemoService;
+import com.huntercodexs.simpleapidemo.service.JeasyPdfBarcodeFormTestService;
+import com.huntercodexs.simpleapidemo.service.JeasyPdfTestService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -32,14 +32,14 @@ public class SimpleApiDemoApplication {
 	}
 
 	private static void barcodeForm() {
-		SimpleApiDemoService apiDemoService = new SimpleApiDemoService();
-		apiDemoService.barcodeForm();
+		JeasyPdfBarcodeFormTestService jeasyForm = new JeasyPdfBarcodeFormTestService();
+		jeasyForm.barcodeForm();
 	}
 
 	private static void slimPdf() {
-		SimpleApiDemo2Service apiDemoService = new SimpleApiDemo2Service();
-		apiDemoService.slimPdfLetter();
-		apiDemoService.slimPdfA4();
+		JeasyPdfTestService jeasyPdf = new JeasyPdfTestService();
+		jeasyPdf.slimPdfLetter();
+		jeasyPdf.slimPdfA4();
 	}
 
 	private static void lambdaAwsDemo() {

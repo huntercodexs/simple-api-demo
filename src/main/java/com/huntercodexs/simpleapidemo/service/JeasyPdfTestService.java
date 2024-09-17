@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class SimpleApiDemo2Service {
+public class JeasyPdfTestService {
 
     private final static String path = "./src/main/resources/files/pdf";
     private final static String pdfFilenameLetter = path+"/my-jeasypdf-test-template-slim-LETTER.pdf";
