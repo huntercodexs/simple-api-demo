@@ -11,6 +11,7 @@ import java.util.*;
 
 import static codexstester.setup.advanced.AdvancedSetup.*;
 import static codexstester.setup.datasource.SampleDataSource.quickJsonDataSource;
+import static com.huntercodexs.codexstester.resource.file.CodexsFileReader.awaitFileContent;
 import static com.huntercodexs.codexstester.util.CodexsHelper.codexsHelperReadFile;
 import static com.huntercodexs.codexstester.util.CodexsJsonParser.codexsTesterJsonRefactor;
 import static com.huntercodexs.codexstester.util.CodexsJsonParser.codexsTesterParseOrgJsonObject;
@@ -25,49 +26,18 @@ public class SampleUnitaryTests extends SampleBridgeTest {
     @Test
     public void whenSumAnyNumbersTest() {
         int result = SampleDataSource.dataSourceSampleSum(1000, 10);
-        codexsTesterAssertInt(result, 1010);
+        codexsTesterAssertInt(result, 1010, null);
     }
 
     @Test
     public void quickJsonTest() {
         String result = quickJsonDataSource();
-        codexsTesterAssertExact("{\"name\":\"Jereelton\",\"age\":39}", result);
+        codexsTesterAssertExact("{\"name\":\"Jereelton\",\"age\":39}", result, null);
     }
 
     @Test
-    public void whenJsonFormatTypedTests() throws Exception {
-        /*SIMULATE RESPONSE SAMPLE*/
-        String string = "value1";
-        net.minidev.json.JSONObject quickJson = new net.minidev.json.JSONObject();
-        HeadersDto headersDto = new HeadersDto();
-        HashMap<Object, Object> hashMap = new HashMap<>();
-        ArrayList<Object> arrayList = new ArrayList<>();
-        LinkedList<Object> linkedList = new LinkedList<>();
-        List<String> list = new ArrayList<>();
-        LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<>();
+    public void whenOrgJsonFormatTypedWithDataTreeTests() throws Exception {
 
-        QuickJson jsonResponse = new QuickJson();
-        jsonResponse.add("field1", string);
-        jsonResponse.add("field2", quickJson);
-        jsonResponse.add("field3", headersDto);
-        jsonResponse.add("field4", hashMap);
-        jsonResponse.add("field5", arrayList);
-        jsonResponse.add("field6", linkedList);
-        jsonResponse.add("field7", list);
-        jsonResponse.add("field8", linkedHashMap);
-
-        codexsTesterCompareJsonFormat(
-                expectedJsonKeys(),
-                expectedJsonValues(),
-                expectedJsonTyped(),
-                jsonResponse.json(),
-                true,
-                "none",
-                true);
-    }
-
-    @Test
-    public void whenJsonFormatTypedWithDataTreeTests() throws Exception {
         /*SIMULATE RESPONSE SAMPLE*/
         String string = "value1";
         QuickJson quickJson = new QuickJson();
@@ -78,19 +48,117 @@ public class SampleUnitaryTests extends SampleBridgeTest {
         List<String> list = new ArrayList<>();
         LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<>();
 
-        QuickJson jsonResponse = new QuickJson();
-        jsonResponse.add("field1", string);
-        jsonResponse.add("field2", quickJson);
-        jsonResponse.add("field3", headersDto);
-        jsonResponse.add("field4", hashMap);
-        jsonResponse.add("field5", arrayList);
-        jsonResponse.add("field6", linkedList);
-        jsonResponse.add("field7", list);
-        jsonResponse.add("field8", linkedHashMap);
+        org.json.JSONObject orgJsonResponseSimulate = new org.json.JSONObject();
+        orgJsonResponseSimulate.put("field1", string);
+        orgJsonResponseSimulate.put("field2", quickJson);
+        orgJsonResponseSimulate.put("field3", headersDto);
+        orgJsonResponseSimulate.put("field4", hashMap);
+        orgJsonResponseSimulate.put("field5", arrayList);
+        orgJsonResponseSimulate.put("field6", linkedList);
+        orgJsonResponseSimulate.put("field7", list);
+        orgJsonResponseSimulate.put("field8", linkedHashMap);
 
         codexsTesterCompareJsonFormat(
                 expectedJsonDataTree(),
-                jsonResponse.json(),
+                orgJsonResponseSimulate,
+                true,
+                "none",
+                true);
+
+    }
+
+    @Test
+    public void whenQuickJsonFormatTypedWithDataTreeTests() throws Exception {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        String string = "value1";
+        QuickJson quickJson = new QuickJson();
+        HeadersDto headersDto = new HeadersDto();
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        ArrayList<Object> arrayList = new ArrayList<>();
+        LinkedList<Object> linkedList = new LinkedList<>();
+        List<String> list = new ArrayList<>();
+        LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<>();
+
+        QuickJson quickJsonResponseSimulate = new QuickJson();
+        quickJsonResponseSimulate.add("field1", string);
+        quickJsonResponseSimulate.add("field2", quickJson);
+        quickJsonResponseSimulate.add("field3", headersDto);
+        quickJsonResponseSimulate.add("field4", hashMap);
+        quickJsonResponseSimulate.add("field5", arrayList);
+        quickJsonResponseSimulate.add("field6", linkedList);
+        quickJsonResponseSimulate.add("field7", list);
+        quickJsonResponseSimulate.add("field8", linkedHashMap);
+
+        codexsTesterCompareJsonFormat(
+                expectedJsonDataTree(),
+                quickJsonResponseSimulate,
+                true,
+                "none",
+                true);
+    }
+
+    @Test
+    public void whenOrgJsonFormatTypedTests() throws Exception {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        String string = "value1";
+        QuickJson quickJson = new QuickJson();
+        HeadersDto headersDto = new HeadersDto();
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        ArrayList<Object> arrayList = new ArrayList<>();
+        LinkedList<Object> linkedList = new LinkedList<>();
+        List<String> list = new ArrayList<>();
+        LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<>();
+
+        org.json.JSONObject orgJsonResponseSimulate = new org.json.JSONObject();
+        orgJsonResponseSimulate.put("field1", string);
+        orgJsonResponseSimulate.put("field2", quickJson);
+        orgJsonResponseSimulate.put("field3", headersDto);
+        orgJsonResponseSimulate.put("field4", hashMap);
+        orgJsonResponseSimulate.put("field5", arrayList);
+        orgJsonResponseSimulate.put("field6", linkedList);
+        orgJsonResponseSimulate.put("field7", list);
+        orgJsonResponseSimulate.put("field8", linkedHashMap);
+
+        codexsTesterCompareJsonFormat(
+                expectedJsonKeys(),
+                expectedJsonValues(),
+                expectedJsonTyped(),
+                orgJsonResponseSimulate,
+                true,
+                "none",
+                true);
+    }
+
+    @Test
+    public void whenQuickJsonFormatTypedTests() throws Exception {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        String string = "value1";
+        QuickJson quickJson = new QuickJson();
+        HeadersDto headersDto = new HeadersDto();
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        ArrayList<Object> arrayList = new ArrayList<>();
+        LinkedList<Object> linkedList = new LinkedList<>();
+        List<String> list = new ArrayList<>();
+        LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<>();
+
+        QuickJson quickJsonResponseSimulate = new QuickJson();
+        quickJsonResponseSimulate.add("field1", string);
+        quickJsonResponseSimulate.add("field2", quickJson);
+        quickJsonResponseSimulate.add("field3", headersDto);
+        quickJsonResponseSimulate.add("field4", hashMap);
+        quickJsonResponseSimulate.add("field5", arrayList);
+        quickJsonResponseSimulate.add("field6", linkedList);
+        quickJsonResponseSimulate.add("field7", list);
+        quickJsonResponseSimulate.add("field8", linkedHashMap);
+
+        codexsTesterCompareJsonFormat(
+                expectedJsonKeys(),
+                expectedJsonValues(),
+                expectedJsonTyped(),
+                quickJsonResponseSimulate,
                 true,
                 "none",
                 true);
@@ -98,24 +166,26 @@ public class SampleUnitaryTests extends SampleBridgeTest {
 
     @Test
     public void whenDtoFormatTypedTests() {
-        /*SIMULATE RESPONSE SAMPLE*/
-        HeadersDto headersDtoResponse = new HeadersDto();
-        headersDtoResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        headersDtoResponse.setHttpMethod(HTTP_METHOD_POST);
 
-        Map<String, String> responseMap = new HashMap<>();
-        responseMap.put("name", "value1");
-        headersDtoResponse.setBodyParameters(responseMap);
+        /*SIMULATE RESPONSE SAMPLE*/
+        HeadersDto dtoToCompare = new HeadersDto();
+        dtoToCompare.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        dtoToCompare.setHttpMethod(HTTP_METHOD_POST);
+
+        Map<String, String> mapResponseSimulate = new HashMap<>();
+        mapResponseSimulate.put("name", "value1");
+        dtoToCompare.setBodyParameters(mapResponseSimulate);
 
         codexsTesterCompareDtoFormat(
                 expectedDtoValues(),
-                headersDtoResponse,
+                dtoToCompare,
                 HeadersDto.class,
                 true);
     }
 
     @Test
     public void whenDtoFormatTypedWithDataTreeTests() {
+
         /*SIMULATE RESPONSE SAMPLE*/
         HeadersDto headersDtoResponse = new HeadersDto();
         headersDtoResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -133,113 +203,8 @@ public class SampleUnitaryTests extends SampleBridgeTest {
     }
 
     @Test
-    public void whenHashMapTypedTests() {
-        /*SIMULATE RESPONSE SAMPLE*/
-        QuickJson quickJson = new QuickJson();
-        quickJson.add("age", 30);
-        quickJson.add("customer", "yes");
-
-        HashMap<Object, Object> hashMapResponse = new HashMap<>();
-        hashMapResponse.put("name", "john smith");
-        hashMapResponse.put("info", quickJson);
-
-        codexsTesterCompareHashMapFormat(
-                expectedHashMapKeys(),
-                expectedHashMapValues(),
-                expectedHashMapTyped(),
-                hashMapResponse,
-                true);
-    }
-
-    @Test
-    public void whenHashMapTypedWithDataTreeTests() {
-        /*SIMULATE RESPONSE SAMPLE*/
-        QuickJson quickJson = new QuickJson();
-        quickJson.add("age", 30);
-        quickJson.add("customer", "yes");
-
-        HashMap<Object, Object> hashMapResponse = new HashMap<>();
-        hashMapResponse.put("name", "john smith");
-        hashMapResponse.put("info", quickJson);
-
-        codexsTesterCompareHashMapFormat(
-                expectedHashMapDataTree(),
-                hashMapResponse,
-                true);
-    }
-
-    @Test
-    public void whenArrayListTypedTests() {
-        /*SIMULATE RESPONSE SAMPLE*/
-        QuickJson quickJson = new QuickJson();
-        quickJson.add("age", 30);
-        quickJson.add("gender", "mens");
-
-        ArrayList<Object> arrayListResponse = new ArrayList<>();
-        arrayListResponse.add("john smith");
-        arrayListResponse.add(quickJson.json());
-
-        codexsTesterCompareArrayListFormat(
-                expectedArrayListValues(),
-                expectedArrayListTyped(),
-                arrayListResponse,
-                true);
-    }
-
-    @Test
-    public void whenArrayListTypedWithDataTreeTests() {
-        /*SIMULATE RESPONSE SAMPLE*/
-        QuickJson quickJson = new QuickJson();
-        quickJson.add("age", 30);
-        quickJson.add("gender", "mens");
-
-        ArrayList<Object> arrayListResponse = new ArrayList<>();
-        arrayListResponse.add("john smith");
-        arrayListResponse.add(quickJson.json());
-
-        codexsTesterCompareArrayListFormat(
-                expectedArrayListDataTree(),
-                arrayListResponse,
-                true);
-    }
-
-    @Test
-    public void whenALinkedListTypedTests() {
-        /*SIMULATE RESPONSE SAMPLE*/
-        QuickJson quickJson = new QuickJson();
-        quickJson.add("age", 30);
-        quickJson.add("gender", "mens");
-
-        LinkedList<Object> linkedListResponse = new LinkedList<>();
-        linkedListResponse.add("john smith");
-        linkedListResponse.add(quickJson.json());
-
-        codexsTesterCompareLinkedListFormat(
-                expectedLinkedListValues(),
-                expectedLinkedListTyped(),
-                linkedListResponse,
-                false);
-    }
-
-    @Test
-    public void whenALinkedListTypedWithDataTreeTests() {
-        /*SIMULATE RESPONSE SAMPLE*/
-        QuickJson quickJson = new QuickJson();
-        quickJson.add("age", 30);
-        quickJson.add("gender", "mens");
-
-        LinkedList<Object> linkedListResponse = new LinkedList<>();
-        linkedListResponse.add("john smith");
-        linkedListResponse.add(quickJson.json());
-
-        codexsTesterCompareLinkedListFormat(
-                expectedLinkedListDataTree(),
-                linkedListResponse,
-                true);
-    }
-
-    @Test
     public void whenListTypedTests() {
+
         /*SIMULATE RESPONSE SAMPLE*/
         QuickJson quickJson = new QuickJson();
         quickJson.add("age", 30);
@@ -265,11 +230,123 @@ public class SampleUnitaryTests extends SampleBridgeTest {
 
         List<String> listResponse = new ArrayList<>();
         listResponse.add("john smith");
-        listResponse.add(quickJson.toString());
+        listResponse.add(quickJson.json());
 
         codexsTesterCompareListFormat(
                 expectedListDataTree(),
                 listResponse,
+                true);
+    }
+
+    @Test
+    public void whenArrayListTypedTests() {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        QuickJson quickJson = new QuickJson();
+        quickJson.add("age", 30);
+        quickJson.add("gender", "men");
+
+        ArrayList<Object> arrayListResponse = new ArrayList<>();
+        arrayListResponse.add("john smith");
+        arrayListResponse.add(quickJson.json());
+
+        codexsTesterCompareArrayListFormat(
+                expectedArrayListValues(),
+                expectedArrayListTyped(),
+                arrayListResponse,
+                true);
+    }
+
+    @Test
+    public void whenArrayListTypedWithDataTreeTests() {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        QuickJson quickJson = new QuickJson();
+        quickJson.add("age", 30);
+        quickJson.add("gender", "mens");
+
+        ArrayList<Object> arrayListResponse = new ArrayList<>();
+        arrayListResponse.add("john smith");
+        arrayListResponse.add(quickJson.json());
+
+        codexsTesterCompareArrayListFormat(
+                expectedArrayListDataTree(),
+                arrayListResponse,
+                true);
+    }
+
+    @Test
+    public void whenHashMapTypedTests() {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        QuickJson quickJson = new QuickJson();
+        quickJson.add("age", 30);
+        quickJson.add("customer", "yes");
+
+        HashMap<Object, Object> hashMapResponse = new HashMap<>();
+        hashMapResponse.put("name", "john smith");
+        hashMapResponse.put("info", quickJson.json());
+
+        codexsTesterCompareHashMapFormat(
+                expectedHashMapKeys(),
+                expectedHashMapValues(),
+                expectedHashMapTyped(),
+                hashMapResponse,
+                true);
+    }
+
+    @Test
+    public void whenHashMapTypedWithDataTreeTests() {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        QuickJson quickJson = new QuickJson();
+        quickJson.add("age", 30);
+        quickJson.add("customer", "yes");
+
+        HashMap<Object, Object> hashMapResponse = new HashMap<>();
+        hashMapResponse.put("name", "john smith");
+        hashMapResponse.put("info", quickJson.json());
+
+        codexsTesterCompareHashMapFormat(
+                expectedHashMapDataTree(),
+                hashMapResponse,
+                true);
+    }
+
+    @Test
+    public void whenALinkedListTypedTests() {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        QuickJson quickJson = new QuickJson();
+        quickJson.add("age", 30);
+        quickJson.add("gender", "mens");
+
+        LinkedList<Object> linkedListResponse = new LinkedList<>();
+        linkedListResponse.add("john smith");
+        linkedListResponse.add(quickJson.json());
+
+        codexsTesterCompareLinkedListFormat(
+                expectedLinkedListValues(),
+                expectedLinkedListTyped(),
+                linkedListResponse,
+                false);
+    }
+
+    @Test
+    public void whenALinkedListTypedWithDataTreeTests() {
+
+        /*SIMULATE RESPONSE SAMPLE*/
+        QuickJson quickJson = new QuickJson();
+        quickJson.add("age", 30);
+        quickJson.add("gender", "mens");
+
+        LinkedList<Object> linkedListResponse = new LinkedList<>();
+        linkedListResponse.add("john smith");
+        linkedListResponse.add(quickJson.json());
+
+        codexsTesterCompareLinkedListFormat(
+                expectedLinkedListDataTree(),
+                linkedListResponse,
                 true);
     }
 
@@ -301,7 +378,7 @@ public class SampleUnitaryTests extends SampleBridgeTest {
 
         LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<>();
         linkedHashMap.put("name", "john smith");
-        linkedHashMap.put("info", quickJson);
+        linkedHashMap.put("info", quickJson.json());
 
         codexsTesterCompareLinkedHashMapFormat(
                 expectedLinkedHashMapDataTree(),
@@ -402,13 +479,13 @@ public class SampleUnitaryTests extends SampleBridgeTest {
         json2.put("roles2", Arrays.toString(roles2));
         json2.put("roles3", "["+Arrays.toString(roles3)+"]");
         json2.put("profileLink", "https://www.profile.com/john-smith?level=test&customer=yes");
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("data1", null);
-        hashMap.put("data2", "My Data 1");
-        hashMap.put("value", 1000);
-        //hashMap.put("object", new Object()+", {\"name\":\"john smith\"}");
-        hashMap.put("object", new Object());
-        json2.put("product", hashMap);
+//        HashMap<String, Object> hashMap = new HashMap<>();
+//        hashMap.put("data1", null);
+//        hashMap.put("data2", "My Data 1");
+//        hashMap.put("value", 1000);
+//        //hashMap.put("object", new Object()+", {\"name\":\"john smith\"}");
+//        hashMap.put("object", new Object());
+//        json2.put("product", hashMap);
         Object object2 = json2;
         String string2 = json2.toString();
 
@@ -430,8 +507,18 @@ public class SampleUnitaryTests extends SampleBridgeTest {
     
     @Test
     public void readFileTest() {
-        String result = codexsHelperReadFile("./src/test/resources/postalcode/unitary.tests.properties");
+        String result = codexsHelperReadFile("./src/test/resources/junit4/sample/unitary.tests.properties");
         System.out.println(result);
+    }
+
+    @Test
+    public void awaitFileContentTest() throws Exception {
+        /*NOTE: Edit the file ./src/test/resources/help4devs/file.txt and press [Ctrl+S] button*/
+        String code = awaitFileContent(
+                "./src/test/resources/junit4/file.txt",
+                "[0-9]{6}",
+                1500000000);
+        codexsTesterAssertRegExp("[0-9]{6}", code, null);
     }
 
 }

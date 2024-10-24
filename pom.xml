@@ -28,9 +28,9 @@
 
 	<properties>
 
-		<!--<java.version>1.8</java.version>-->
+		<java.version>1.8</java.version>
 		<!--<java.version>11</java.version>-->
-		<java.version>17</java.version>
+		<!--<java.version>17</java.version>-->
 		<!--<java.version>21</java.version>-->
 
 		<!--<spring-cloud.version>Finchley.RC1</spring-cloud.version>-->
@@ -131,7 +131,7 @@
             <version>1.0.17-SNAPSHOT</version>
         </dependency>-->
 
-		<dependency>
+		<!--<dependency>
 			<groupId>com.huntercodexs.codexstester</groupId>
 			<artifactId>codexstester-test</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
@@ -142,7 +142,7 @@
 					<artifactId>android-json</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency>-->
 
 		<!--TEST IMPORT JAR: JAVA 21 PROJECT-->
 		<!--<dependency>
@@ -150,6 +150,34 @@
             <artifactId>quickjson</artifactId>
             <version>1.0.21-SNAPSHOT</version>
         </dependency>-->
+
+		<!--GITHUB PACKAGES-->
+		<!--<dependency>
+			<groupId>com.huntercodexs</groupId>
+			<artifactId>codexstester</artifactId>
+			<version>1.0.9-SNAPSHOT</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>-->
+
+		<!--MAVEN CENTRAL REPOSITORY-->
+		<dependency>
+			<groupId>com.huntercodexs</groupId>
+			<artifactId>codexstester</artifactId>
+			<version>1.0.9-SNAPSHOT</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 	</dependencies>
 
@@ -163,13 +191,24 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+	</dependencyManagement>-->
 
-	<repositories>
+	<!--<repositories>
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
 			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>-->
+
+	<!--<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Central</name>
+			<url>https://central.sonatype.com</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -245,9 +284,9 @@
 						<!-- Enable quiet mode to suppress console logs -->
 						<cucumber.publish.quiet>true</cucumber.publish.quiet>
 					</systemPropertyVariables>
-					<argLine>
-						--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED
-					</argLine>
+					<!--<argLine>
+						&#45;&#45;add-opens java.base/java.util=ALL-UNNAMED &#45;&#45;add-opens java.base/java.lang=ALL-UNNAMED
+					</argLine>-->
 				</configuration>
 				<executions>
 					<execution>

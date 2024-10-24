@@ -52,7 +52,7 @@ public abstract class AdvancedSetup {
 
         return new Object[][]{
             {"field1", string,        String.class},
-            {"field2", quickJson,    QuickJson.class},
+            {"field2", quickJson,     QuickJson.class},
             {"field3", headersDto,    HeadersDto.class},
             {"field4", hashMap,       HashMap.class},
             {"field5", arrayList,     ArrayList.class},
@@ -85,6 +85,7 @@ public abstract class AdvancedSetup {
                 "null",
                 "null",
                 "null",
+                "null",
                 "{name=value1}"
         };
     }
@@ -92,7 +93,7 @@ public abstract class AdvancedSetup {
     public static Object[][] expectedDtoDataTree() {
         return new Object[][]{
                 {"contentType", "application/json", String.class},
-                {"accepted", "null", String.class},
+                {"acceptable", "null", String.class},
                 {"httpMethod", "POST", String.class},
                 {"statusCode", "null", String.class},
                 {"crossOrigin", "null", String.class},
@@ -109,6 +110,7 @@ public abstract class AdvancedSetup {
                 {"apiKeyGeneric", "null", String.class},
                 {"additionalName", "null", String.class},
                 {"additionalValue", "null", String.class},
+                {"objectResponse", "null", Class.class},
                 {"bodyParameters", "{name=value1}", Map.class}
         };
     }
@@ -125,17 +127,17 @@ public abstract class AdvancedSetup {
         QuickJson quickJson = new QuickJson();
         quickJson.add("age", 30);
         quickJson.add("customer", "yes");
-        return new Object[]{string, quickJson};
+        return new Object[]{string, quickJson.json()};
     }
 
     public static Object[] expectedHashMapTyped() {
-        return new Object[]{String.class, QuickJson.class};
+        return new Object[]{String.class, String.class};
     }
 
     public static Object[][] expectedHashMapDataTree() {
         return new Object[][]{
             {"name", "john smith", String.class},
-            {"info", "{\"age\":30,\"customer\":\"yes\"}", QuickJson.class},
+            {"info", "{\"age\":30,\"customer\":\"yes\"}", String.class},
         };
     }
 
@@ -146,18 +148,20 @@ public abstract class AdvancedSetup {
         String string = "john smith";
         QuickJson quickJson = new QuickJson();
         quickJson.add("age", 30);
-        quickJson.add("gender", "mens");
-        return new Object[]{string, quickJson};
+        quickJson.add("gender", "men");
+        return new Object[]{string, quickJson.json()};
     }
 
     public static Object[] expectedArrayListTyped() {
-        return new Object[]{String.class, QuickJson.class};
+        return new Object[]{
+                String.class, String.class
+        };
     }
 
     public static Object[][] expectedArrayListDataTree() {
         return new Object[][]{
                 {0, "john smith", String.class},
-                {1, "{\"gender\":\"mens\",\"age\":30}", QuickJson.class},
+                {1, "{\"gender\":\"mens\",\"age\":30}", String.class},
         };
     }
 
@@ -173,13 +177,13 @@ public abstract class AdvancedSetup {
     }
 
     public static Object[] expectedLinkedListTyped() {
-        return new Object[]{String.class, QuickJson.class};
+        return new Object[]{String.class, String.class};
     }
 
     public static Object[][] expectedLinkedListDataTree() {
         return new Object[][]{
                 {0, "john smith", String.class},
-                {1, "{\"gender\":\"mens\",\"age\":30}", QuickJson.class},
+                {1, "{\"gender\":\"mens\",\"age\":30}", String.class},
         };
     }
 
@@ -227,102 +231,7 @@ public abstract class AdvancedSetup {
     public static Object[][] expectedLinkedHashMapDataTree() {
         return new Object[][]{
                 {"name", "john smith", String.class},
-                {"info", "{\"age\":30,\"customer\":\"yes\"}", QuickJson.class},
-        };
-    }
-
-    /**
-     * POSTAL CODE ADVANCED TESTS - JSON TYPED
-     */
-    public static String[] expectedJsonKeysPostalCode() {
-        return new String[]{
-                "cep",
-                "logradouro",
-                "complemento",
-                "bairro",
-                "localidade",
-                "uf",
-                "ibge",
-                "gia",
-                "ddd",
-                "siafi"
-        };
-    }
-
-    public static Object[] expectedJsonValuesPostalCode() {
-        return new Object[]{
-                "12090002",
-                "Rua São Caetano",
-                "",
-                "Campos Elíseos",
-                "Taubaté",
-                "SP",
-                "3554102",
-                "6889",
-                "12",
-                "7183"
-        };
-    }
-
-    public static Object[] expectedJsonValuesPostalCode2() {
-        return new Object[]{
-                "12090-002",
-                "Rua São Caetano",
-                "",
-                "Campos Elíseos",
-                "Taubaté",
-                "SP",
-                "3554102",
-                "6889",
-                "12",
-                "7183"
-        };
-    }
-
-    public static Object[] expectedJsonTypedPostalCode() {
-        return new Object[]{
-                String.class,
-                String.class,
-                String.class,
-                String.class,
-                String.class,
-                String.class,
-                String.class,
-                String.class,
-                String.class,
-                String.class
-        };
-    }
-
-    public static Object[][] expectedJsonPostalCodeDataTree() {
-
-        return new Object[][]{
-                {"cep",         "12090002",        String.class},
-                {"logradouro",  "Rua São Caetano", String.class},
-                {"complemento", "",                String.class},
-                {"bairro",      "Campos Elíseos",  String.class},
-                {"localidade",  "Taubaté",         String.class},
-                {"uf",          "SP",              String.class},
-                {"ibge",        "3554102",         String.class},
-                {"gia",         "6889",            String.class},
-                {"ddd",         "12",              String.class},
-                {"siafi",       "7183",            String.class}
-        };
-    }
-
-    public static Object[][] expectedJsonPostalCode2DataTree() {
-
-        return new Object[][]{
-                {"cep",         "12090-002",       String.class},
-                {"logradouro",  "Rua São Caetano", String.class},
-                {"complemento", "",                String.class},
-                {"bairro",      "Campos Elíseos",  String.class},
-                {"localidade",  "Taubaté",         String.class},
-                {"uf",          "SP",              String.class},
-                {"ibge",        "3554102",         String.class},
-                {"gia",         "6889",            String.class},
-                {"ddd",         "12",              String.class},
-                {"siafi",       "7183",            String.class}
+                {"info", "{\"age\":30,\"customer\":\"yes\"}", String.class},
         };
     }
 
