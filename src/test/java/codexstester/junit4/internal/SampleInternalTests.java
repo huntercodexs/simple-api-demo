@@ -66,7 +66,7 @@ public class SampleInternalTests extends SampleBridgeTest {
         requestDto.setUri(internalProps.getProperty("internal.tests.base-uri"));
         requestDto.setId("");
         requestDto.setDataRequest("");
-        requestDto.setExpectedMessage(null);
+        requestDto.setExpectedMessage("Welcome to codexstester sample API");
 
         codexsTesterInternal_StatusCode200_RetrieveOK(headersDto, requestDto);
     }
