@@ -24,7 +24,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.http.MediaType;
 
 import java.util.Collections;
-import java.util.List;
 
 import static com.huntercodexs.codexstester.resource.web.CodexsWebElements.*;
 
@@ -112,8 +111,8 @@ public class SampleExternalTests extends SampleBridgeTest {
         JwtResponseDto response = codexsSecurity.jwtAuth(JwtResponseDto.class);
 
         //JWT
-        //codexsTesterAssertJwtHS256(response.getJwt(), null);
-        codexsTesterAssertJwtHS384(response.getJwt(), null);
+        codexsTesterAssertJwtHS256(response.getJwt(), null);
+        //codexsTesterAssertJwtHS384(response.getJwt());
         //codexsTesterAssertJwtHS512(response.getJwt());
 
         //JWT-ASSIGN

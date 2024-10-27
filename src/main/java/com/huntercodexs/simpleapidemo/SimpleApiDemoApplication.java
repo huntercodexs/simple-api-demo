@@ -5,12 +5,22 @@ package com.huntercodexs.simpleapidemo;
 //import com.huntercodexs.quickjson.core.QuickJsonExtractor;
 //import com.huntercodexs.simpleapidemo.dto.QuickJsonDto;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 
 //import java.util.Arrays;
 //import java.util.HashMap;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+		MongoAutoConfiguration.class,
+		MongoDataAutoConfiguration.class
+})
+@EnableAutoConfiguration(exclude = {
+		MongoAutoConfiguration.class,
+		MongoDataAutoConfiguration.class
+})
 public class SimpleApiDemoApplication {
 
 	public static void main(String[] args) {
