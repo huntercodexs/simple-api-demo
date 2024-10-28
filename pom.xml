@@ -28,9 +28,9 @@
 
 	<properties>
 
-		<!--<java.version>1.8</java.version>-->
+		<java.version>1.8</java.version>
 		<!--<java.version>11</java.version>-->
-		<java.version>17</java.version>
+		<!--<java.version>17</java.version>-->
 		<!--<java.version>21</java.version>-->
 
 		<!--<spring-cloud.version>Finchley.RC1</spring-cloud.version>-->
@@ -95,56 +95,6 @@
             <scope>compile</scope>
         </dependency>-->
 
-		<!--TEST IMPORT JAR: JAVA 8 PROJECT-->
-		<!--<dependency>
-            <groupId>com.huntercodexs.hardsys</groupId>
-            <artifactId>hardsys</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.huntercodexs.jeasypdf</groupId>
-            <artifactId>jeasypdf</artifactId>
-            <version>24.09.1-SNAPSHOT</version>
-        </dependency>-->
-		<!--<dependency>
-            <groupId>com.huntercodexs.quickjson</groupId>
-            <artifactId>quickjson</artifactId>
-            <version>1.0.8-SNAPSHOT</version>
-        </dependency>-->
-
-		<!--TEST IMPORT JAR: JAVA 11 PROJECT-->
-		<!--<dependency>
-            <groupId>com.huntercodexs.demo</groupId>
-            <artifactId>aws-lambda-demo</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>-->
-		<!--<dependency>
-            <groupId>com.huntercodexs.quickjson</groupId>
-            <artifactId>quickjson</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
-        </dependency>-->
-
-		<!--TEST IMPORT JAR: JAVA 17 PROJECT-->
-		<!--<dependency>
-            <groupId>com.huntercodexs.quickjson</groupId>
-            <artifactId>quickjson</artifactId>
-            <version>1.0.17-SNAPSHOT</version>
-        </dependency>-->
-
-		<dependency>
-			<groupId>com.huntercodexs.codexstester</groupId>
-			<artifactId>codexstester-test</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>com.vaadin.external.google</groupId>
-					<artifactId>android-json</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!--TEST IMPORT JAR: JAVA 21 PROJECT-->
 		<!--<dependency>
             <groupId>com.huntercodexs.quickjson</groupId>
             <artifactId>quickjson</artifactId>
@@ -179,31 +129,6 @@
 	<build>
 		<plugins>
 
-			<!--Maven Plugin-->
-			<!--<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<fork>true</fork>
-					<mainClass>${start-class}</mainClass>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-							<goal>build-info</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>-->
-
-			<!--Shade Plugin-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -217,53 +142,6 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!--Generate Reports: extentreports-cucumber7-adapter-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<!-- Set the test source directory -->
-					<testSourceDirectory>src/test/java/codexstester</testSourceDirectory>
-					<trimStackTrace>false</trimStackTrace>
-					<excludes>
-						<exclude>**/*Integration.java</exclude>
-					</excludes>
-					<systemPropertyVariables>
-						<extent.reporter.html.start>true</extent.reporter.html.start>
-						<!-- Specify the output path for the HTML report -->
-						<extent.reporter.html.out>
-							target/cucumber-reports/ApplicationTestReport.html
-						</extent.reporter.html.out>
-						<!-- Specify the Extent configuration file -->
-						<extent.reporter.html.config>
-							src/test/resources/reporting/extent-config.xml
-						</extent.reporter.html.config>
-						<!-- Enable quiet mode to suppress console logs -->
-						<cucumber.publish.quiet>true</cucumber.publish.quiet>
-					</systemPropertyVariables>
-					<argLine>
-						--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED
-					</argLine>
-				</configuration>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<phase>integration-test</phase>
-						<configuration>
-							<excludes>
-								<exclude>none</exclude>
-							</excludes>
-							<includes>
-								<include>**/*Integration.java</include>
-							</includes>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
