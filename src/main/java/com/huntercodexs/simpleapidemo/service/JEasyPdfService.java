@@ -5,6 +5,7 @@ import com.huntercodexs.jeasypdf.barcode.setting.BarcodeScanner;
 import com.huntercodexs.jeasypdf.core.dto.*;
 import com.huntercodexs.jeasypdf.core.enumerator.*;
 import org.krysalis.barcode4j.HumanReadablePlacement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ import static com.huntercodexs.jeasypdf.core.JEasyPdfResources.binFile;
 @Service
 public class JEasyPdfService {
 
-    private final static String PATH = "./src/test/resources/files";
+    private final static String PATH = "./src/main/resources/files";
     private final static String FILEPATH_SOURCE = PATH+"/txt/file.txt";
     private final static String FILEPATH_TARGET = PATH+"/pdf/my-jeasypdf-test.pdf";
     private final static String FILEPATH_TARGET_IMAGE = PATH+"/pdf/my-jeasypdf-test-image.pdf";
@@ -40,6 +41,7 @@ public class JEasyPdfService {
 
     private final JEasyPdf jEasyPdf;
 
+    @Autowired
     public JEasyPdfService() {
         this.jEasyPdf = new JEasyPdf();
     }
