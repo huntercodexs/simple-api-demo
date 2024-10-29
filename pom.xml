@@ -95,6 +95,13 @@
             <scope>compile</scope>
         </dependency>-->
 
+		<!--JEASYPDF: GITHUB PACKAGES-->
+		<dependency>
+			<groupId>com.huntercodexs</groupId>
+			<artifactId>jeasypdf</artifactId>
+			<version>1.8.0-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
 
 	<!--<dependencyManagement>
