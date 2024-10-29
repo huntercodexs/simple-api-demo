@@ -116,11 +116,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--<dependency>
+		<dependency>
             <groupId>com.huntercodexs</groupId>
             <artifactId>quickjson</artifactId>
-            <version>1.8.0</version>
-        </dependency>-->
+            <version>1.8.0-SNAPSHOT</version>
+        </dependency>
 
 	</dependencies>
 
