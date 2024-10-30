@@ -1,6 +1,7 @@
 package com.huntercodexs.simpleapidemo;
 
 import com.huntercodexs.simpleapidemo.service.JEasyPdfService;
+import com.huntercodexs.simpleapidemo.service.JEasyPdfSlimTemplateService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,9 +15,14 @@ public class SimpleApiDemoApplication {
 		JEasyPdfService jEasyPdfService = new JEasyPdfService();
         try {
             jEasyPdfService.pdfCreateTest();
+            jEasyPdfService.pdfAddBarcodeFormTest();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        JEasyPdfSlimTemplateService jEasyPdfSlimTemplateService = new JEasyPdfSlimTemplateService();
+        jEasyPdfSlimTemplateService.easyPdfTemplateSlimLetterSample1Test();
+        jEasyPdfSlimTemplateService.easyPdfTemplateSlimA4Sample1Test();
 
         SpringApplication.run(SimpleApiDemoApplication.class, args);
 	}

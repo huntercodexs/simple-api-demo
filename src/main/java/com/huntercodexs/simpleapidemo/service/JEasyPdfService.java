@@ -33,8 +33,8 @@ public class JEasyPdfService {
     private final static String FILEPATH_TARGET_QRCODE = PATH+"/pdf/my-jeasypdf-test-qrcode.pdf";
     private final static String FILEPATH_TARGET_BC = PATH+"/pdf/my-jeasypdf-test-barcode-form.pdf";
     private final static String FILEPATH_TARGET_PASSWORD = PATH+"/pdf/my-jeasypdf-test-password.pdf";
-    private final static String IMAGE_PATH = "./src/test/resources/files/images/ads/file.png";
-    private final static String IMAGE_PATH_ADS = "./src/test/resources/files/images/ads/img.png";
+    private final static String IMAGE_PATH = "./src/main/resources/files/images/ads/file.png";
+    private final static String IMAGE_PATH_ADS = "./src/main/resources/files/images/ads/img.png";
     private final static String USER_PASSWORD = "123456";
     private final static String OWNER_PASSWORD = "password";
     private final static String BARCODE_TEXT_VALUE = "03399.31339 03600.000008 74216.301015 7 96480000061000";
@@ -203,7 +203,7 @@ public class JEasyPdfService {
         settings.getFields().setFieldFooter2("Autenticação mecanica - Ficha de Compensação");
 
         /*Data Header*/
-        settings.getData().setDataHeaderImage("./src/test/resources/files/images/ads/file.png");
+        settings.getData().setDataHeaderImage("./src/main/resources/files/images/ads/file.png");
         settings.getData().setDataHeaderOperator("1234-56");
         settings.getData().setDataHeaderBarcode(barcodeValue);
 
@@ -564,14 +564,14 @@ public class JEasyPdfService {
 
         //Specific page
         pageSet.setPageNumber(1);
-        imageSet.setFilenamePath("./src/test/resources/files/images/exported/NORMAL.jpg");
+        imageSet.setFilenamePath("./src/main/resources/files/images/exported/NORMAL.jpg");
         this.jEasyPdf.pdfToImage(docSet, pageSet, imageSet);
 
         //Whole document
         for (int k = 1; k < 4; k++) {
             System.out.println(k);
             pageSet.setPageNumber(k);
-            imageSet.setFilenamePath("./src/test/resources/files/images/exported/NORMAL-"+k+".jpg");
+            imageSet.setFilenamePath("./src/main/resources/files/images/exported/NORMAL-"+k+".jpg");
             this.jEasyPdf.pdfToImage(docSet, pageSet, imageSet);
         }
     }
@@ -580,7 +580,7 @@ public class JEasyPdfService {
         JEasyPdfDocument docSet = documentSettings(FILEPATH_TARGET);
         docSet.setUserPassword(USER_PASSWORD);
         docSet.setOwnerPassword(OWNER_PASSWORD);
-        this.jEasyPdf.pdfSplitter(docSet, "./src/test/resources/files/pdf/splitter/");
+        this.jEasyPdf.pdfSplitter(docSet, "./src/main/resources/files/pdf/splitter/");
     }
 
     public void pdfMergerTest() {
@@ -589,9 +589,9 @@ public class JEasyPdfService {
         docSet.setOwnerPassword(OWNER_PASSWORD);
 
         List<String> pdfList = new ArrayList<>();
-        pdfList.add("./src/test/resources/files/pdf/splitter/my-jeasypdf-test-1.pdf");
-        pdfList.add("./src/test/resources/files/pdf/splitter/my-jeasypdf-test-2.pdf");
-        pdfList.add("./src/test/resources/files/pdf/splitter/my-jeasypdf-test-3.pdf");
+        pdfList.add("./src/main/resources/files/pdf/splitter/my-jeasypdf-test-1.pdf");
+        pdfList.add("./src/main/resources/files/pdf/splitter/my-jeasypdf-test-2.pdf");
+        pdfList.add("./src/main/resources/files/pdf/splitter/my-jeasypdf-test-3.pdf");
 
         this.jEasyPdf.pdfMerger(docSet, pdfList);
     }
