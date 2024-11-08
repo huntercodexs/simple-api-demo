@@ -16,7 +16,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>simple-api-demo</name>
 	<artifactId>simple-api-demo</artifactId>
-	<description>simple-api-demo</description>
+	<description>simple-api-demo-tomcat</description>
 
 	<properties>
 		<java.version>17</java.version>
