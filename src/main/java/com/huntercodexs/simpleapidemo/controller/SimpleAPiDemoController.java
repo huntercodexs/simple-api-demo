@@ -4,11 +4,9 @@ import com.huntercodexs.quickjson.QuickJson;
 import com.huntercodexs.simpleapidemo.service.SimpleApiDemoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -24,7 +22,8 @@ public class SimpleAPiDemoController {
         return "Welcome to SIMPLE API DEMO";
     }
 
-    @GetMapping(path = "/api/professional/details")
+    @ResponseBody
+    @GetMapping(path = "/api/professional/details", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> controller() {
         QuickJson professionalDetails = new QuickJson();
         professionalDetails.add("Name", "Jereelton de Oliveira Teixeira");
