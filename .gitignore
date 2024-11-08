@@ -40,3 +40,4 @@ build/
 
 *.jpg
 /src/main/resources/files/
+/trash/
