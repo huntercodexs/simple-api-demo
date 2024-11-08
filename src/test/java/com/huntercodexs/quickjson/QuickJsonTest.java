@@ -21,6 +21,8 @@ import java.util.List;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class QuickJsonTest {
 
+	/*for deploy*/
+
 	QuickJson qj;
 	QuickJsonBuilder qjBuilder;
 	QuickJsonExtractor qjExtractor;

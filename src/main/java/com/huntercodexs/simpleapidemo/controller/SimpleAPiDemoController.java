@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @ControllerAdvice
 @CrossOrigin(origins = "*")
-@RequestMapping("${api.prefix}")
 public class SimpleAPiDemoController {
 
     @Autowired
