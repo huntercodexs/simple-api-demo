@@ -1,8 +1,8 @@
 package com.huntercodexs.simpleapidemo.controller;
 
+import com.huntercodexs.quickjson.QuickJson;
 import com.huntercodexs.simpleapidemo.service.SimpleApiDemoService;
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,12 +20,12 @@ public class SimpleAPiDemoController {
     SimpleApiDemoService simpleApiDemoService;
 
     @GetMapping(path = "/api/professional/details")
-    public ResponseEntity<JSONObject> controller() {
-        JSONObject professionalDetails = new JSONObject();
-        professionalDetails.put("Name", "Jereelton de Oliveira Teixeira");
-        professionalDetails.put("GitHUB", "https://github.com/jereelton-devel");
-        professionalDetails.put("Language", "Java");
-        professionalDetails.put("Role", "Backend Developer | Java Developer | Spring Boot | Infrastructure Architect | AWS Services");
-        return ResponseEntity.ok().body(professionalDetails);
+    public ResponseEntity<?> controller() {
+        QuickJson professionalDetails = new QuickJson();
+        professionalDetails.add("Name", "Jereelton de Oliveira Teixeira");
+        professionalDetails.add("GitHUB", "https://github.com/jereelton-devel");
+        professionalDetails.add("Language", "Java");
+        professionalDetails.add("Role", "Backend Developer | Java Developer | Spring Boot | Infrastructure Architect | AWS Services");
+        return ResponseEntity.ok().body(professionalDetails.json());
     }
 }
