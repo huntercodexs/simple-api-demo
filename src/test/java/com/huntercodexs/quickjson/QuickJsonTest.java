@@ -2,7 +2,7 @@ package com.huntercodexs.quickjson;
 
 import com.huntercodexs.quickjson.core.QuickJsonBuilder;
 import com.huntercodexs.quickjson.core.QuickJsonExtractor;
-import com.huntercodexs.quickjson.dto.QuickJsonDto;
+import com.huntercodexs.simpleapidemo.dto.QuickJsonDto;
 import com.huntercodexs.simpleapidemo.service.SimpleApiDemoService;
 import org.junit.Assert;
 import org.junit.Before;
