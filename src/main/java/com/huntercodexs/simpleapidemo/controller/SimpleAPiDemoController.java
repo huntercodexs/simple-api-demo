@@ -26,7 +26,7 @@ public class SimpleAPiDemoController {
         professionalDetails.put("GitHUB", "https://github.com/jereelton-devel");
         professionalDetails.put("Language", "Java");
         professionalDetails.put("Role", "Backend Developer | Java Developer | Spring Boot | Infrastructure Architect | AWS Services");
-        professionalDetails.put("JavaVersion", "17");
+        professionalDetails.put("Java", "17");
         return ResponseEntity.ok().body(professionalDetails);
     }
 }
