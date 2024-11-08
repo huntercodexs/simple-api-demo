@@ -19,6 +19,11 @@ public class SimpleAPiDemoController {
     @Autowired
     SimpleApiDemoService simpleApiDemoService;
 
+    @GetMapping("/welcome")
+    public String welcome() {
+        return "Welcome to SIMPLE API DEMO";
+    }
+
     @GetMapping(path = "/api/professional/details")
     public ResponseEntity<?> controller() {
         QuickJson professionalDetails = new QuickJson();
