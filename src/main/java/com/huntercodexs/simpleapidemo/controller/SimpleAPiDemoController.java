@@ -1,8 +1,8 @@
 package com.huntercodexs.simpleapidemo.controller;
 
+import com.huntercodexs.quickjson.QuickJson;
 import com.huntercodexs.simpleapidemo.service.SimpleApiDemoService;
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
