@@ -11,12 +11,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<packaging>jar</packaging>
 	<groupId>com.huntercodexs</groupId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>simple-api-demo</name>
 	<artifactId>simple-api-demo</artifactId>
-	<description>simple-api-demo-jar-file</description>
+	<description>simple-api-demo-pipeline</description>
 
 	<properties>
 		<java.version>17</java.version>

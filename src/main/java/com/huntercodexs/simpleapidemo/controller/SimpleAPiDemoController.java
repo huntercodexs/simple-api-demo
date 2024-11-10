@@ -31,7 +31,7 @@ public class SimpleAPiDemoController {
         professionalDetails.add("Language", "Java");
         professionalDetails.add("Role", "Software Engineering | Backend Developer | Java Developer | Spring Boot | Infrastructure Architect | AWS Services");
         professionalDetails.add("Java", "17");
-        professionalDetails.add("Packing", "Jar File");
+        professionalDetails.add("Jenkins", "Pipeline");
         return ResponseEntity.ok().body(professionalDetails.json());
     }
 }
