@@ -29,9 +29,9 @@ public class SimpleAPiDemoController {
         professionalDetails.add("Name", "Jereelton de Oliveira Teixeira");
         professionalDetails.add("GitHUB", "https://github.com/jereelton-devel");
         professionalDetails.add("Language", "Java");
-        professionalDetails.add("Role", "Backend Developer | Java Developer | Spring Boot | Infrastructure Architect | AWS Services");
+        professionalDetails.add("Role", "Software Engineering | Backend Developer | Java Developer | Spring Boot | Infrastructure Architect | AWS Services");
         professionalDetails.add("Java", "17");
-        professionalDetails.add("Server", "Tomcat 9.0.96");
+        professionalDetails.add("Packing", "Jar File");
         return ResponseEntity.ok().body(professionalDetails.json());
     }
 }

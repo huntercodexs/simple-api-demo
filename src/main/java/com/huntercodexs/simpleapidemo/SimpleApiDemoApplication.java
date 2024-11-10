@@ -2,16 +2,9 @@ package com.huntercodexs.simpleapidemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class SimpleApiDemoApplication extends SpringBootServletInitializer {
-
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(SimpleApiDemoApplication.class);
-	}
+public class SimpleApiDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SimpleApiDemoApplication.class, args);
