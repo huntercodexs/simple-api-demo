@@ -13,19 +13,19 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-repo/spring-boot-app.git'
+                git 'https://github.com/huntercodexs/simple-api-demo.git'
             }
         }
 
 		stage('Build'){
 			steps {
-				bat "mvn clean install -DskipTests"
+				sh "mvn clean install -DskipTests"
 			}
 		}
 
 		stage('Test'){
 			steps{
-				bat "mvn test"
+				sh "mvn test"
 			}
 		}
 
