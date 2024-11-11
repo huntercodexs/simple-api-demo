@@ -6,6 +6,7 @@ pipeline {
 	}
 
 	tools {
+	    maven "JENKINS_MAVEN_HOME-3.6.3"
 		jdk 'java17-native'
 	}
 
@@ -13,7 +14,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/huntercodexs/simple-api-demo.git'
+                git branch: 'pipeline-release', url: 'https://github.com/huntercodexs/simple-api-demo.git'
             }
         }
 
