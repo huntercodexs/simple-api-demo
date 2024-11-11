@@ -19,7 +19,7 @@ public class SimpleAPiDemoController {
 
     @GetMapping("/welcome")
     public String welcome() {
-        return "Welcome to SIMPLE API DEMO";
+        return "Welcome to SIMPLE API DEMO Updated";
     }
 
     @ResponseBody
