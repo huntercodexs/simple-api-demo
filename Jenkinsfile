@@ -32,7 +32,7 @@ pipeline {
 
 		stage('Deploy') {
             steps {
-                sshagent(credentials: ['ubuntu_vbox_ssh']) {
+                sshagent(credentials: ['ssh_key_ubuntu_vbox']) {
                     sh '''
                     ssh ubuntu-vbox@192.168.0.24 "mkdir -p /home/ubuntu-vbox/Deployment/simple-api-demo/backup"
                     scp target/classes/application.properties ubuntu-vbox@192.168.0.24:/home/ubuntu-vbox/Deployment/simple-api-demo/application.properties
