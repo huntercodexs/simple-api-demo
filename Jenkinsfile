@@ -18,20 +18,21 @@ pipeline {
             }
         }
 
-		stage('Build'){
-			steps {
-				sh "mvn clean install -DskipTests"
-			}
-		}
-
 		stage('Test'){
 			steps{
 				sh "mvn test"
 			}
 		}
 
+		stage('Build'){
+			steps {
+				sh "mvn clean install -DskipTests"
+			}
+		}
+
 		stage('Deploy') {
             steps {
+                // Needs to generate key pairs between host and server: ssh-keygen + ssh-copy-id
                 sh '''
                 ssh ubuntu-vbox@192.168.0.24 "mkdir -p /home/ubuntu-vbox/Deployment/simple-api-demo/backup"
                 scp target/classes/application.properties ubuntu-vbox@192.168.0.24:/home/ubuntu-vbox/Deployment/simple-api-demo/application.properties
