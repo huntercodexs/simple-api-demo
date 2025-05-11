@@ -21,11 +21,13 @@
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<sonar-exclusions>
+			src/main/java/com/huntercodexs/simpleapidemo/dto/QuickJsonDto.java,
+			src/main/java/com/huntercodexs/simpleapidemo/SimpleApiDemoApplication.java
+		</sonar-exclusions>
 
-		<sonar.exclusions>
-			**/SimpleApiDemoApplication.java
-			**/QuickJsonDto.java
-		</sonar.exclusions>
+		<sonar.exclusions>${sonar-exclusions}</sonar.exclusions>
+		<sonar.coverage.exclusions>${sonar-exclusions}</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
@@ -80,6 +82,7 @@
 
 	<build>
 		<plugins>
+			<!--maven-shade-plugin-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -96,6 +99,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!--maven-jar-plugin-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -109,33 +113,33 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<!--maven-surefire-plugin-->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0</version>
 			</plugin>
+			<!--maven-failsafe-plugin-->
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.0.0</version>
 			</plugin>
+			<!--sonar-maven-plugin-->
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.7.0.1746</version>
+			</plugin>
+			<!--jacoco-maven-plugin - Sonarqube-->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.12</version>
-				<executions>
-					<execution>
-						<id>default-prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
+				<version>0.8.10</version>
+				<configuration>
+					<!--Use this configuration to set witch files should be ignored in the sonar measures/metrics-->
+					<!--<excludes>
+						<exclude>${sonar-exclusions}</exclude>
+					</excludes>-->
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
