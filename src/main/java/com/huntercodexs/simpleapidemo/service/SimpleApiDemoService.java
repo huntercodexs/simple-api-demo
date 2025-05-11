@@ -21,7 +21,7 @@ public class SimpleApiDemoService {
         return "Welcome " + name;
     }
 
-    public void quickJsonTest() {
+    public String quickJsonTest() {
 
         QuickJson qj = new QuickJson();
         QuickJsonBuilder qjBuilder = new QuickJsonBuilder();
@@ -65,6 +65,8 @@ public class SimpleApiDemoService {
         Object jsonFinal = qjBuilder.build(quickJsonDto);
 
         System.out.println(jsonFinal);
+
+        return jsonFinal.toString();
 
     }
 
