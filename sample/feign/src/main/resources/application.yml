@@ -1,0 +1,156 @@
+# App info
+namespace: cd-consignado
+info:
+  app:
+    name: '@project.name@'
+    description: '@project.description@'
+    version: '@project.version@'
+user:
+  timezone: ${TIMEZONE:America/Sao_Paulo}
+server:
+  shutdown: graceful
+  port: ${SERVER_PORT:8080}
+
+# Spring config
+spring:
+  threads:
+    virtual:
+        enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 60s
+  main:
+    banner-mode: off
+    allow-bean-definition-overriding: true
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: 'false'
+      fail-on-missing-creator-properties: 'true'
+    mapper:
+      accept-case-insensitive-properties: 'false'
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+      INDENT_OUTPUT: true
+      write-empty-json-arrays: 'true'
+      write-dates-as-timestamps: 'false'
+      write-date-keys-as-timestamps: 'false'
+    default-property-inclusion: non_null
+  data:
+    mongodb:
+      primary:
+        uri: ${MONGODB_URL_CONNECTION:}
+        database: mgocnsgms001posvenda
+      secondary:
+        uri: mongodb://dusrbdbrai00:dusrbdbrai00@10.195.93.89:27017/?authSource=BRAID000&readPreference=primary&directConnection=true&ssl=false
+        database: BRAID000
+
+# Log config
+logging:
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    br:
+      com:
+        bradesco: ${LOG_LEVEL_BR_COM_BRADESCO:INFO}
+    org:
+      springframework: ${LOG_LEVEL_ORG_SPRINGFRAMEWORK:INFO}
+
+# Log config - Bradesco
+bradesco:
+  enge:
+    logcloud:
+      tecnico.log:
+        console:
+          enabled: ${LOG_TECNICO_CONSOLE_ENABLED:true}
+          pretty: ${LOG_TECNICO_CONSOLE_PRETTY:false}
+        tcp:
+          enabled: ${LOG_TECNICO_TCP_ENABLED:false}
+      # Negócio
+      srvcanal.log:
+        console:
+          enabled: ${LOG_SRVCANAL_CONSOLE_ENABLED:true}
+        tcp:
+          enabled: ${LOG_SRVCANAL_TCP_ENABLED:false}
+
+# Management (Actuator)
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+      base-path: /
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+      health:
+        diskspace:
+          enabled: false
+        livenessState:
+          enabled: true
+        readinessState:
+          enabled: true
+        redis:
+          enabled: false
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      type: w3c
+
+# Feign config
+feign:
+  httpclient:
+    disableSslValidation: 'true'
+
+# Feign Integrations
+api:
+  organizational:
+    uri: http://localhost:8080/bradesco/organizational/v1
+  user-identity:
+    uri: http://localhost:8080/bradesco/security/user-identity/v1
+
+# Feign Integration - Bradesco
+bradesco-integration:
+  openfeign:
+    client:
+      config:
+        metrics:
+          enabled: 'true'
+        logger-level: FULL
+        retryer:
+          max-attempts: '3'
+          enabled: 'true'
+          max-period: '10000'
+          period: '1000'
+        proxy:
+          enable: 'false'
+          port: '8080'
+          host: host.bradesco.proxy
+        read-timeout: '5000'
+        logger:
+          enabled: 'true'
+        connect-timeout: '5000'
+
+# Circuit Breaker
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        failureRateThreshold: '70'
+        waitDurationInOpenState: '600000'
+        slowCallDurationThreshold: '6000'
+        slidingWindowType: TIME_BASED
+        minimumNumberOfCalls: '10'
+        slowCallRateThreshold: '70'
+        ignoreExceptions: ''
+        slidingWindowSize: '60'
+        registerHealthIndicator: 'true'
+    instances:
+      user-identityClient:
+        baseConfig: default
+      organizationalClient:
+        baseConfig: default
+

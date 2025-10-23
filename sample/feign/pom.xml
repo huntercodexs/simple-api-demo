@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.6</version>
+        <relativePath/>
+    </parent>
+
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
+    <groupId>br.com.bradesco.cnsg</groupId>
+    <artifactId>cnsg-srv-persiste-posvenda</artifactId>
+    <name>${project.artifactId}</name>
+    <description>Persiste pos venda base de dados</description>
+
+    <organization>
+        <name>Bradesco</name>
+    </organization>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <bradesco.enge.logcloud.version>4.1.1</bradesco.enge.logcloud.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <sonar.coverage.exclusions>
+            src/main/java/**/Application.java,
+            src/main/java/**/application/configs/**,
+            src/main/java/**/application/domain/**,
+            src/main/java/**/adapter/database/**,
+            src/main/java/**/adapter/controller/exception/**,
+            src/main/java/**/adapter/controller/dto/**,
+        </sonar.coverage.exclusions>
+    </properties>
+
+    <dependencies>
+
+        <!--Spring Boot-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!--OTEL: Ponte do Micrometer com o OpenTelemetry -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>br.com.bradesco.escea.logcloud</groupId>
+            <artifactId>enge-lib-logcloud-spring-starter</artifactId>
+            <version>${bradesco.enge.logcloud.version}</version>
+        </dependency>
+
+        <!--Validation-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!--Actuator-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--Feign: for integrations-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
+        <!--Resilience-->
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-spring-boot3</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-metrics</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <!--Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--OpenAPI/Swagger-->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.34</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-core</artifactId>
+            <version>2.2.34</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-core</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.12.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+            <version>2.18.2</version>
+        </dependency>
+
+        <!--Tests: Mockito Inline para Java 21 -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>5.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+
+            <!--spring-boot-maven-plugin-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!--jacoco-maven-plugin-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.13</version>
+                <configuration>
+                    <excludes>
+                        <exclude>${sonar.coverage.exclusions}</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--maven-compiler-plugin-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!--srcclr-maven-plugin-->
+            <plugin>
+                <groupId>com.srcclr</groupId>
+                <artifactId>srcclr-maven-plugin</artifactId>
+            </plugin>
+
+            <!--build-helper-maven-plugin-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated/swagger/gen</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--CODEGEN Requirements-->
+
+            <!--openapi-generator-maven-plugin-->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.16.0</version>
+                <executions>
+
+                    <!--OPENAPI-->
+                    <execution>
+                        <id>persiste-posvenda</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>src/main/resources/api/openapi/PERSISTE-POSVENDA.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <modelPackage>br.com.bradesco.cnsg.persisteposvenda.api.model</modelPackage>
+                            <apiPackage>br.com.bradesco.cnsg.persisteposvenda.api</apiPackage>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <generateSupportingFiles>false</generateSupportingFiles>
+                                <sourceFolder>gen</sourceFolder>
+                                <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <java21>true</java21>
+                                <serializableModel>true</serializableModel>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+
+                    <!--FEIGN-->
+                    <execution>
+                        <id>organizational</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>src/main/resources/api/feign/openapi/ORGANIZATIONAL.yaml</inputSpec>
+                            <modelPackage>br.com.bradesco.cnsg.integration.organizational.model</modelPackage>
+                            <apiPackage>br.com.bradesco.cnsg.integration.organizational.api</apiPackage>
+                            <generatorName>spring</generatorName>
+                            <library>spring-cloud</library>
+                            <templateDirectory>src/main/resources/api/feign/templates</templateDirectory>
+                            <configHelp/>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <performBeanValidation>true</performBeanValidation>
+                                <sourceFolder>gen</sourceFolder>
+                                <java21>true</java21>
+                                <useTags>true</useTags>
+                                <title>organizational</title> <!-- Used for feign bean name and uri property-->
+                                <serializableModel>true</serializableModel>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>user-identity</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>src/main/resources/api/feign/openapi/USER-IDENTITY.yaml</inputSpec>
+                            <modelPackage>br.com.bradesco.cnsg.integration.user_identity.model</modelPackage>
+                            <apiPackage>br.com.bradesco.cnsg.integration.user_identity.api</apiPackage>
+                            <generatorName>spring</generatorName>
+                            <library>spring-cloud</library>
+                            <templateDirectory>src/main/resources/api/feign/templates</templateDirectory>
+                            <configHelp/>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <performBeanValidation>true</performBeanValidation>
+                                <sourceFolder>gen</sourceFolder>
+                                <java21>true</java21>
+                                <useTags>true</useTags>
+                                <title>user-identity</title> <!-- Used for feign bean name and uri property-->
+                                <serializableModel>true</serializableModel>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

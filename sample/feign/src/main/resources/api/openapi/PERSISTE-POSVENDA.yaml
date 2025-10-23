@@ -1,0 +1,250 @@
+openapi: 3.0.1
+
+info:
+  version: 1.0.0
+  title: Persiste Pós-Venda API
+  description: Documentação da API de persistência de pós-venda.
+
+servers:
+  - url: http://localhost:8080/cnsg-posvenda/v1
+    description: Generated server url Localhost
+  - url: https://cnsg-srv-persiste-posvenda-cd-consignado.apps.arodvadqemppi11.arocorpp.bradesco.com.br/cnsg-posvenda/v1
+    description: Generated server url Dev
+  - url: https://cnsg-srv-persiste-posvenda-cd-consignado.apps.arodvadqemppi11.arocorpp.bradesco.com.br/cnsg-posvenda/v1
+    description: Generated server url Homologacao
+  - url: https://cnsg-srv-persiste-posvenda-cd-consignado.apps.arodvadqemppi11.arocorpp.bradesco.com.br/cnsg-posvenda/v1
+    description: Generated server url Prod
+
+tags:
+  - name: Contratos Pós-Venda
+    description: Operações de persistência e consulta de contratos pós-venda
+
+paths:
+  /contratos:
+    post:
+      tags:
+        - Contratos Pós-Venda
+      summary: Incluir registro de contrato
+      operationId: incluirRegistroNaBase
+      description: |
+        ## Responsabilidades
+        * Inclui um novo registro de contrato na base de dados.
+
+        ---
+        
+        ## Requirementos
+        * Para acessar esse endpoint o cliente deve ter as seguintes roles:
+          * `ADMIN` and `USER` and `AUTH-BASIC`
+
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CnsgPosVendaIncluirRegistroRequisicao'
+        required: true
+      responses:
+        '201':
+          description: Registro criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CnsgPosVendaIncluirRegistroResposta'
+        '409':
+          description: |
+            **Conflict** - Registro já existe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CnsgPosVendaErrorModel'
+
+  /contratos/{idContrato}:
+    get:
+      tags:
+        - Contratos Pós-Venda
+      summary: Consultar registro de contrato
+      operationId: consultarRegistroNaBase
+      description: |
+        ## Responsabilidades
+        * Consulta um registro de contrato pelo ID.
+
+        ---
+        
+        ## Requirementos
+        * Para acessar esse endpoint o cliente deve ter as seguintes roles:
+          * `ADMIN` and `USER` and `AUTH-BASIC`
+
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: idContrato
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: |
+            **OK** - Registro encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CnsgPosVendaContratoPorIdResposta'
+        '404':
+          description: |
+            **Not Found** - Registro nao encontrado
+
+            This endpoint can throw the following errors:
+
+            ```
+            [{"code": "4040312", "message": "REGISTRO NAO ENCONTRADO NA BASE"}]
+            ```
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CnsgPosVendaErrorModel'
+
+    patch:
+      tags:
+        - Contratos Pós-Venda
+      summary: Atualizar registro de contrato
+      operationId: atualizarRegistroNaBase
+      description: |
+        ## Responsabilidades
+        * Atualiza um registro de contrato existente na base de dados.
+
+        ---
+        
+        ## Requirementos
+        * Para acessar esse endpoint o cliente deve ter as seguintes roles:
+          * `ADMIN` and `USER` and `AUTH-BASIC` 
+
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: idContrato
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CnsgPosVendaAtualizacaoRequisicao'
+        required: true
+      responses:
+        '204':
+          description: |
+            **No Content** - Registro atualizado com sucesso
+        '404':
+          description: |
+            **Not Found** - Registro nao encontrado
+
+            This endpoint can throw the following errors:
+
+            ```
+            [{"code": "4040312", "message": "REGISTRO NAO ENCONTRADO NA BASE"}]
+            ```
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CnsgPosVendaErrorModel'
+
+components:
+  schemas:
+    CnsgPosVendaIncluirRegistroRequisicao:
+      required:
+        - cliente
+        - cnpj_empregador
+        - codigo_tipo_encerramento
+        - data_celebracao
+        - numero_contrato
+        - produto
+        - situacao_registro
+      type: object
+      properties:
+        numero_contrato:
+          type: string
+        cliente:
+          $ref: '#/components/schemas/CnsgPosVendaClienteRequisicao'
+        produto:
+          $ref: '#/components/schemas/CnsgPosVendaProdutoRequisicao'
+        cnpj_empregador:
+          type: string
+        data_celebracao:
+          type: string
+          format: date
+        codigo_tipo_encerramento:
+          type: string
+        situacao_registro:
+          type: string
+    CnsgPosVendaClienteRequisicao:
+      required:
+        - cpf_cliente
+        - matricula_cliente
+        - numero_convenio
+      type: object
+      properties:
+        cpf_cliente:
+          type: string
+        matricula_cliente:
+          type: string
+        numero_convenio:
+          type: string
+    CnsgPosVendaProdutoRequisicao:
+      required:
+        - codigo_familia_produto
+        - codigo_produto
+      type: object
+      properties:
+        codigo_produto:
+          type: string
+        codigo_familia_produto:
+          type: string
+
+    CnsgPosVendaIncluirRegistroResposta:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'string'
+        message:
+          type: string
+          example: 'Registro criado com sucesso'
+
+    CnsgPosVendaContratoPorIdResposta:
+      type: object
+      properties:
+        id:
+          type: string
+        situacaoRegistro:
+          type: string
+
+    CnsgPosVendaAtualizacaoRequisicao:
+      type: object
+      properties:
+        situacao_registro:
+          type: string
+
+    CnsgPosVendaErrorModel:
+      type: array
+      items:
+        type: object
+        required:
+          - code
+          - message
+        properties:
+          code:
+            type: string
+            example: "code"
+          message:
+            type: string
+            example: "message"
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
